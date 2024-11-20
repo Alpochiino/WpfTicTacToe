@@ -23,7 +23,7 @@
         {
             if (gameOver) return;
 
-            Button clickedButton = sender as Button;
+            Button? clickedButton = sender as Button;
             int row = Grid.GetRow(clickedButton);
             int col = Grid.GetColumn(clickedButton);
 
