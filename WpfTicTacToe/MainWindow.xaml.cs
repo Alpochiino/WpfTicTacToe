@@ -8,6 +8,8 @@
 
     public partial class MainWindow : Window
     {
+        private const string PlayerSymbol = "X";
+        private const string ComputerSymbol = "O";
         private string[,] board = new string[3, 3];
         private int playerScore = 0;
         private int computerScore = 0;
@@ -29,9 +31,9 @@
 
             if (board[row, col] != null) return;
 
-            MakeMove(row, col, "X", Brushes.Blue);
+            MakeMove(row, col, PlayerSymbol, Brushes.Blue);
 
-            if (CheckWinner("X"))
+            if (CheckWinner(PlayerSymbol))
             {
                 playerScore++;
                 return;
@@ -49,25 +51,24 @@
 
         private void ComputerMove()
         {
-            if (MakeStrategicMove("X")) return;
-            if (MakeStrategicMove("O")) return;
+            if (MakeStrategicMove(ComputerSymbol)) return;
+            if (MakeStrategicMove(PlayerSymbol)) return;
 
             MakeRandomMove();
         }
 
-        private bool MakeStrategicMove(string opponent)
+        private bool MakeStrategicMove(string symbol)
         {
-            string player = opponent == "X" ? "O" : "X";
             for (int row = 0; row < 3; row++)
             {
                 for (int col = 0; col < 3; col++)
                 {
                     if (board[row, col] == null)
                     {
-                        board[row, col] = player;
-                        if (CheckWinner(player))
+                        board[row, col] = symbol;
+                        if (CheckWinner(symbol))
                         {
-                            MakeMove(row, col, "O", Brushes.Red);
+                            MakeMove(row, col, ComputerSymbol, Brushes.Red);
                             return true;
                         }
                         board[row, col] = null;
@@ -86,7 +87,7 @@
                 int col = random.Next(0, 3);
                 if (board[row, col] == null)
                 {
-                    MakeMove(row, col, "O", Brushes.Red);
+                    MakeMove(row, col, ComputerSymbol, Brushes.Red);
                     break;
                 }
             }
@@ -98,10 +99,10 @@
             UpdateButton(row, col, content, color);
             if (CheckWinner(content))
             {
-                if (content == "O") computerScore++;
+                if (content == ComputerSymbol) computerScore++;
                 else playerScore++;
                 UpdateScoreDisplay();
-                ShowResult(content == "O" ? "Datorn vinner!" : "Du vinner!");
+                ShowResult(content == ComputerSymbol ? "Datorn vinner!" : "Du vinner!");
                 gameOver = true;
             }
         }
