@@ -32,21 +32,22 @@
             if (board[row, col] != null) return;
 
             MakeMove(row, col, PlayerSymbol, Brushes.Blue);
-
+            
             if (CheckWinner(PlayerSymbol))
             {
-                playerScore++;
+                gameOver = true;
                 return;
             }
 
-            if (!IsBoardFull())
-            {
-                ComputerMove();
-            }
-            else
+            if (IsBoardFull())
             {
                 ShowResult("Oavgjort!");
+                gameOver = true; 
+                return;
             }
+
+            ComputerMove();
+
         }
 
         private void ComputerMove()
