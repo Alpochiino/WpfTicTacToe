@@ -11,6 +11,7 @@
         private const string PlayerSymbol = "X";
         private const string ComputerSymbol = "O";
         private string[,] board = new string[3, 3];
+        
         private int playerScore = 0;
         private int computerScore = 0;
         private bool gameOver = false;
